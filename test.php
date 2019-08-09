@@ -4,84 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <script src="js/jquery-3.4.1.js" type="text/javascript"></script>
+    <script src="js/bootstrap.js" type="text/javascript"></script>
+    <script src="js/asd.js" type="text/javascript"></script>
+    
+    
     <title>利用发电设备</title>
 </head>
 <body>
     <?php
-        $db = new mysqli('localhost','root','','mrfz');
-        if(mysqli_connect_errno())
-        {
-            echo '<p>db connect failed</p></br>';
-        }
-        else echo 'connected </br>';
-        $tags = array();
-        $zhiye = array("先锋干员","近卫干员","重装干员","辅助干员","术士干员","医疗干员","狙击干员","特种干员");
-        $xingbie = array("男性干员","女性干员");
-        $cizhuin = array("治疗","输出","减速","防护","生存","费用回复");
-        $cizhuir = array("支援","削弱","位移","快速复活");
-        $cizhuisr = array("爆发","召唤","控场");
-        $zizhi = array("高级资深干员","资深干员","新手");
 
-        for($i = 0; $i<5; $i++)
-        {
-            $rr=rand(1,99);
-            if($rr < 45)
-            {
-                $tmp = array_rand($zhiye,1);
-                if($tmp == 7)
-                {
-                    $rr = rand(1,99);
-                    if ($rr < 90)
-                    {
-                        $i--;
-                        continue;
-                    }
-                }
-                array_push($tags,$zhiye[$tmp]);
-            }
-            else if($rr >= 45 && $rr < 70)
-            {
-                $rr = rand(1,9999);
-                if($rr < 9950)
-                    array_push($tags,$zizhi[2]);
-                else if($rr < 9998)
-                    array_push($tags,$zizhi[1]);
-                else array_push($tags,$zizhi[0]);
-            }
-            else if($rr >= 70 && $rr < 90)
-            {
-                $rr = rand(1,9999);
-                if($rr < 9900)
-                {
-                    $tmp = array_rand($cizhuin,1);
-                    array_push($tags,$cizhuin[$tmp]);
-                }
-                else if($rr > 9900 && $rr < 9990)
-                {
-                    $tmp = array_rand($cizhuir,1);
-                    array_push($tags,$cizhuir[$tmp]);
-                }
-                else
-                {
-                    $tmp = array_rand($cizhuisr,1);
-                    array_push($tags,$cizhuisr[$tmp]);
-                }
-            }
-            else
-            {
-                $rr = rand(1,99);
-                if($rr < 75)
-                    array_push($tags,"女性干员");
-                else array_push($tags,"男性干员");
-            }
-            $tags = array_unique($tags);
-            $i = count($tags) - 1;
-        }
+    date_default_timezone_set("PRC");
 
-        foreach($tags as $value)
-        {
-            echo "$value </br>";
-        }
+    $mytime= date("Y-m-d H:i:s");  
+    echo '<p>'.$mytime.'</p>';
     ?>
+
+    <div class="row mt-3">
+        <div class="col-12 col-lg-4 px-2">
+            <table class="table">       
+                <tr>
+                    <td><button type="button" class="btn btn-warning disabled">资质类</button></td>
+                    <td>
+                        <button id="gaozi" type="button" class="btn btn-default">高级资深干员</button>
+                        <button id="zishen" type="button" class="btn btn-default">资深干员</button>
+                        <button id="noob" type="button" class="btn btn-default">新手</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button type="button" class="btn btn-warning" disabled>位置类</button></td>
+                    <td>
+                        <button type="button" class="btn btn-default">近战位</button>
+                        <button type="button" class="btn btn-default">远程位</button>
+                </tr>
+                <tr>
+                    <td><button type="button" class="btn btn-warning" disabled>性别类</button></td>
+                    <td>
+                        <button type="button" class="btn btn-default">男性干员</button>
+                        <button type="button" class="btn btn-default">女性干员</button>
+                </tr>
+                <tr>
+                    <td><button type="button" class="btn btn-warning" disabled>干员类</td>
+                    <td>
+                        <button type="button" class="btn btn-default">先锋干员</button>
+                        <button type="button" class="btn btn-default">近卫干员</button>
+                        <button type="button" class="btn btn-default">重装干员</button>
+                        <button type="button" class="btn btn-default">辅助干员</button>
+                        <button type="button" class="btn btn-default">术士干员</button>
+                        <button type="button" class="btn btn-default">医疗干员</button>
+                        <button type="button" class="btn btn-default">狙击干员</button>
+                        <button type="button" class="btn btn-default">特种干员</button>
+                </tr>
+                <tr>
+                    <td><button type="button" class="btn btn-warning" disabled>词缀类</button></td>
+                    <td>
+                        <button type="button" class="btn btn-default">治疗</button>
+                        <button type="button" class="btn btn-default">输出</button>
+                        <button type="button" class="btn btn-default">支援</button>
+                        <button type="button" class="btn btn-default">减速</button>
+                        <button type="button" class="btn btn-default">防护</button>
+                        <button type="button" class="btn btn-default">生存</button>
+                        <button type="button" class="btn btn-default">控场</button>
+                        <button type="button" class="btn btn-default">削弱</button>
+                        <button type="button" class="btn btn-default">位移</button>
+                        <button type="button" class="btn btn-default">爆发</button>
+                        <button type="button" class="btn btn-default">召唤</button>
+                        <button type="button" class="btn btn-default">快速复活</button>
+                        <button type="button" class="btn btn-default">费用回复</button>
+                </tr>
+            </table>
+            </div>
+            <div class="col-12 col-lg-8 px-0">
+            </div>
+        </div>
+    </div>        
+    <hr/>
+    <div class="col-12">
+    
+        <script>loadSy();</script>
+        <div class="col-2">
+            <table class="table">
+                <tr>
+                    <td><button id="hup">↑</button></td>
+                    <td><button id="mup">↑</button></td>
+                </tr>
+                <tr>
+                    <input type="text">
+                    <input type="text">
+                </tr>
+                <tr>
+                    <td><button id="hdown">↓</button></td>
+                    <td><button id="mdown">↓</button></td>
+                </tr>
+                <tr>
+            </div>
+                <div class="btn-group" data-toggle="buttons gck">
+                        <label id="bt1" class="btn btn-default gck">
+                            <input type="checkbox" autocomplete="off">
+                        </label>
+                        <label id="bt2" class="btn btn-default gck">
+                            <input type="checkbox" autocomplete="off">
+                        </label>
+                        <label id="bt3" class="btn btn-default gck">
+                            <input type="checkbox" autocomplete="off">
+                        </label>
+                        <label id="bt4" class="btn btn-default gck">
+                            <input type="checkbox" autocomplete="off">
+                        </label>
+                        <label id="bt5" class="btn btn-default gck">
+                            <input type="checkbox" autocomplete="off">
+                        </label>
+                    <button type="button" class="btn btn-info" onclick="loadSy()">刷新</button>
+                    <button type="button" class="btn btn-danger" onclick="goSy()">GO</button>
+                </div>
+            </tr>
+        </table>
+    </div>
+
 </body>
 </html>
