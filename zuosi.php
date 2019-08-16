@@ -54,7 +54,7 @@
     echo gyQuery($stmt, $name, $qStar);
     
 
-
+    //干员判断算法
     function gyQuery(&$stmt ,&$name, &$qStar)
     {
         $names[0] = [];
