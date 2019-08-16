@@ -94,7 +94,7 @@ A:
                     array_push($gyList, $names[0][$i]);
             }
             if(count($gyList) == 0)
-                return 'err';
+                goto C;
         }
         else if($rr > 900)
         {
